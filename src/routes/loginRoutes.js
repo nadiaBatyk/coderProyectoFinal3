@@ -5,14 +5,11 @@ const routerUsers = Router();
 
 
 
-routerUsers.route('/')
-.get(daos.productDao.getProducts)
-.post(daos.productDao.createProduct)
+routerUsers.route('/register')
+.post(daos.userDao.createUser)
 
-routerUsers.route('/:id')
-.get(daos.productDao.getProducts)
-.put(daos.productDao.updateProduct)
-.delete(daos.productDao.deleteProduct);
+routerUsers.route('/login')
+.post(daos.userDao.logUser);
 
 
 export default routerUsers;

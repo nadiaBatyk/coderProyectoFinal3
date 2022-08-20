@@ -2,6 +2,8 @@ import express from "express";
 import routerCart from "./routes/cartRoutes.js";
 //import notFoundRouter from "./routes/notFound";
 import routerProducts from "./routes/productRoutes.js";
+import routerLogin from "./routes/loginRoutes.js";
+import verifyToken from "./middlewares/auth.js";
 import dotenv from "dotenv";
 dotenv.config();
 const app = express();
@@ -9,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/productos", routerProducts);
+app.use("/api/productos",verifyToken, routerProducts);
 app.use("/api/carrito", routerCart);
 app.use("/", routerLogin);
 //app.use('**',notFoundRouter)
