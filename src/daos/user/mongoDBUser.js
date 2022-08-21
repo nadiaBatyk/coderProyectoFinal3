@@ -5,8 +5,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { PlantillaMail } from "../../emails/plantillaBase.js";
 import { PlantillaNuevoUser } from "../../emails/nuevoUsuario.js";
+import { MensajeBase } from "../../mensajes/mensajeClass.js";
 
 class MongoDBUsers extends MongoClass {
   constructor() {
@@ -81,7 +81,8 @@ class MongoDBUsers extends MongoClass {
                 }
               );
               user.token = token;
-        
+              const message = new MensajeBase(`Hola ${user.name}👋 Nuevo ingreso a tu cuenta de Ecommerce✨`,`+5491134407002`)
+              message.sendMessage()
               return res.status(200).json(user);
         }return res.status(400).json({ message: `Invalid credentials` });
     } catch (error) {
