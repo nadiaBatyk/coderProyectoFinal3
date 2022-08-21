@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { PlantillaMail } from "../../emails/plantillaBase.js";
+import { PlantillaNuevoUser } from "../../emails/nuevoUsuario.js";
 
 class MongoDBUsers extends MongoClass {
   constructor() {
@@ -56,7 +58,8 @@ class MongoDBUsers extends MongoClass {
         }
       );
       user.token = token;
-
+      const mail = new PlantillaNuevoUser(user)
+      mail.sendMail()
       return res.status(200).json(user);
     } catch (error) {
       console.log(`Estoy en el catch`);
