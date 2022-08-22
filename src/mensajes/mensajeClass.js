@@ -9,7 +9,11 @@ export class MensajeBase {
         this.from=process.env.TWILIO_NUMBER;
         this.to=to;
     }
-    async sendMessage(){
+    async sendMessage(whatsapp=false){
+        if(whatsapp){
+            this.from = `whatsapp:${process.env.TWILIO_WHATSAPP}`
+            this.to = `whatsapp:${this.to}`
+        }
         try {
             const message = await client.messages.create(this)
             console.log(message);

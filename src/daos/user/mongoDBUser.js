@@ -58,37 +58,37 @@ class MongoDBUsers extends MongoClass {
         }
       );
       user.token = token;
-      const mail = new PlantillaNuevoUser(user)
-      mail.sendMail()
+      const mail = new PlantillaNuevoUser(user);
+      mail.sendMail();
       return res.status(200).json(user);
     } catch (error) {
       console.log(`Estoy en el catch`);
       next(error);
     }
   };
-  logUser=async (req,res,next)=>{
+  logUser = async (req, res, next) => {
     try {
-        const {email,password} = req.body;
-        if (Object.values(req.body).some((v) => !v))
+      const { email, password } = req.body;
+      if (Object.values(req.body).some((v) => !v))
         return res.status(400).json({ message: `All items are required` });
-        const user = await this.collection.findOne({ email });
-        if(user && (await bcrypt.compare(password,user.password))){
-            const token = jwt.sign(
-                { userId: user._id, email },
-                process.env.TOKEN_KEY,
-                {
-                  expiresIn: "1h",
-                }
-              );
-              user.token = token;
-              const message = new MensajeBase(`Hola ${user.name}👋 Nuevo ingreso a tu cuenta de Ecommerce✨`,`+5491134407002`)
-              message.sendMessage()
-              return res.status(200).json(user);
-        }return res.status(400).json({ message: `Invalid credentials` });
+      const user = await this.collection.findOne({ email });
+      if (user && (await bcrypt.compare(password, user.password))) {
+        const token = jwt.sign(
+          { userId: user._id, email },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "1h",
+          }
+        );
+        user.token = token;
+
+        return res.status(200).json(user);
+      }
+      return res.status(400).json({ message: `Invalid credentials` });
     } catch (error) {
-        next(error);
+      next(error);
     }
-  }
+  };
 
   updateUser = (req, res, next) => {
     let { id } = req.params;
