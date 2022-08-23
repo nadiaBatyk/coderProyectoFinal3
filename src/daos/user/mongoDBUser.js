@@ -21,7 +21,6 @@ class MongoDBUsers extends MongoClass {
           return res.json(product);
         },
         (error) => {
-          console.log(error);
           return next(error);
         }
       );
@@ -62,7 +61,6 @@ class MongoDBUsers extends MongoClass {
       mail.sendMail();
       return res.status(200).json(user);
     } catch (error) {
-      console.log(`Estoy en el catch`);
       next(error);
     }
   };

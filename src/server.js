@@ -6,6 +6,7 @@ import routerLogin from "./routes/loginRoutes.js";
 import verifyToken from "./middlewares/auth.js";
 import dotenv from "dotenv";
 import routerOrder from "./routes/orderRoutes.js";
+import logger from "./config/winstonConfig.js"
 dotenv.config();
 const app = express();
 
@@ -18,13 +19,13 @@ app.use("/api/orders",verifyToken, routerOrder);
 app.use("/", routerLogin);
 //app.use('**',notFoundRouter)
 app.use((err, req, res, next) => {
-  console.log(err)
+  logger.error(err)
   res.status(err.status).json({ status: err.status, message: err.message });
 });
 
 const PORT = process.env.PORT;
 
 const server = app.listen(PORT, () => {
-  console.log(`conectado al puerto ${PORT}`);
+  logger.info(`conectado al puerto ${PORT}`)
 });
-server.on("error", (error) => console.log(`error en el servidor ${error}`));
+server.on("error", (error) => logger.error(`error en el servidor ${error}`) );

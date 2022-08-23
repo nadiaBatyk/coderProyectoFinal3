@@ -11,7 +11,7 @@ class MongoDBOrder extends MongoClass {
 
   createOrder = (req, res, next) => {
     let body = req.body;
-    console.log(body);
+    
     super.create(body).then(
       (item) => {
         const mailPed = new PlantillaNuevoPedido(item)
@@ -45,7 +45,7 @@ class MongoDBOrder extends MongoClass {
           return res.json(product);
         },
         (error) => {
-          console.log(error);
+          
           return next(error);
         }
       );
