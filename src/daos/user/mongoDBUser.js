@@ -5,8 +5,6 @@ import dotenv from "dotenv";
 dotenv.config();
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { PlantillaNuevoUser } from "../../emails/nuevoUsuario.js";
-import { MensajeBase } from "../../mensajes/mensajeClass.js";
 
 class MongoDBUsers extends MongoClass {
   constructor() {
@@ -45,9 +43,11 @@ class MongoDBUsers extends MongoClass {
         return res
           .status(409)
           .json({ message: `User already exist. Please log in` });
+        console.log(req.file);
       let encryptedPass = await bcrypt.hash(body.password, 10);
       body.password = encryptedPass;
       body.email = body.email.toLowerCase();
+      body.userImage = req.file.path.replace(/\\/g, "/")
       const user = await super.create(body);
       const token = jwt.sign(
         { userId: user._id, email: body.email },
@@ -57,8 +57,8 @@ class MongoDBUsers extends MongoClass {
         }
       );
       user.token = token;
-      const mail = new PlantillaNuevoUser(user);
-      mail.sendMail();
+      /* const mail = new PlantillaNuevoUser(user);
+      mail.sendMail(); */
       return res.status(200).json(user);
     } catch (error) {
       next(error);

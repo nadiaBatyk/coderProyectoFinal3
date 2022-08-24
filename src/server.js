@@ -7,12 +7,16 @@ import verifyToken from "./middlewares/auth.js";
 import dotenv from "dotenv";
 import routerOrder from "./routes/orderRoutes.js";
 import logger from "./config/winstonConfig.js"
+import path from 'path';
+import { fileURLToPath } from 'url';
 dotenv.config();
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
 
+const __dirname = path.dirname(__filename);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use("/uploads",express.static(process.cwd() + "/uploads"));
 app.use("/api/productos",verifyToken, routerProducts);
 app.use("/api/carrito",verifyToken, routerCart);
 app.use("/api/orders",verifyToken, routerOrder);
