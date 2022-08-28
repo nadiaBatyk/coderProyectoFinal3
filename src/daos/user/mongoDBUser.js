@@ -47,7 +47,12 @@ class MongoDBUsers extends MongoClass {
       let encryptedPass = await bcrypt.hash(body.password, 10);
       body.password = encryptedPass;
       body.email = body.email.toLowerCase();
-      body.userImage = req.file.path.replace(/\\/g, "/")
+      if(req.file){
+        body.userImage = req.file.path.replace(/\\/g, "/")
+      }else{
+        body.userImage=null
+      }
+      
       const user = await super.create(body);
       const token = jwt.sign(
         { userId: user._id, email: body.email },

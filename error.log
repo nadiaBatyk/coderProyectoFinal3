@@ -7,3 +7,4 @@
 {"code":"ENOENT","errno":-4058,"level":"error","path":"C:\\Users\\nadia\\OneDrive\\Documents\\programacion\\Backend-Coder\\entregaFinal3\\src\\routesuploads\\3f6fc9b0e34d806aaa1df33c69db508d.jpg","storageErrors":[],"syscall":"open"}
 {"code":"ENOENT","errno":-4058,"level":"error","path":"C:\\Users\\nadia\\OneDrive\\Documents\\programacion\\Backend-Coder\\entregaFinal3\\src\\routes\\uploads\\3f6fc9b0e34d806aaa1df33c69db508d.jpg","storageErrors":[],"syscall":"open"}
 {"code":"ENOENT","errno":-4058,"level":"error","path":"C:\\Users\\nadia\\OneDrive\\Documents\\programacion\\uploads\\3f6fc9b0e34d806aaa1df33c69db508d.jpg","storageErrors":[],"syscall":"open"}
+{"level":"error"}
