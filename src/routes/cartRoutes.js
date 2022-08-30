@@ -7,7 +7,6 @@ routerCart
   .route("/")
   .post(daos.cartDao.createCart)
   .get(daos.cartDao.getCarts)
-  .get(daos.cartDao.getCartByUser);
 
 routerCart
   .route("/:id")

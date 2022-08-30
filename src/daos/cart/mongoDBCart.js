@@ -61,6 +61,8 @@ class MongoDBCart extends MongoClass {
   };
   getCarts = (req, res, next) => {
     let { id } = req.params;
+    let { userId } = req.query;
+ 
     if (id) {
       super.getById(id).then(
         (product) => {
@@ -71,7 +73,20 @@ class MongoDBCart extends MongoClass {
           return next(error);
         }
       );
-    } else {
+    }else if(userId) {
+      console.log(`estoy aca`);
+      super.getByField({userId:userId}).then(
+        (product) => {
+          return res.json(product);
+        },
+        (error) => {
+          
+          return next(error);
+        }
+      );
+    
+    }
+    else {
       super.getAll().then(
         (lista) => {
           return res.json(lista);
@@ -81,18 +96,7 @@ class MongoDBCart extends MongoClass {
     }
   };
   getCartByUser=(req, res, next)=>{
-    let { userId } = req.query;
-    if (userId) {
-      super.getByField(userId).then(
-        (product) => {
-          return res.json(product);
-        },
-        (error) => {
-          
-          return next(error);
-        }
-      );
-    }
+    
   }
 }
 export default MongoDBCart;
