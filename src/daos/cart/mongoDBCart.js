@@ -81,7 +81,7 @@ class MongoDBCart extends MongoClass {
     }
   };
   getCartByUser=(req, res, next)=>{
-    let { userId } = req.params;
+    let { userId } = req.query;
     if (userId) {
       super.getByField(userId).then(
         (product) => {
