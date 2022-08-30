@@ -5,7 +5,8 @@ dotenv.config();
 const {TOKEN_KEY} = process.env;
 
  const verifyToken = (req,res,next)=>{
-    const token = req.body.token || req.query.token || req.headers['x-access-token']
+    console.log(req.headers);
+    const token = req.body.token || req.query.token || req.headers['authorization']
     if(!token) return res.status(403).json({message:`Unauthenticated`})
     try {
         const decoded = jwt.verify(token,TOKEN_KEY);

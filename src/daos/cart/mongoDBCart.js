@@ -59,5 +59,40 @@ class MongoDBCart extends MongoClass {
       );
     }
   };
+  getCarts = (req, res, next) => {
+    let { id } = req.params;
+    if (id) {
+      super.getById(id).then(
+        (product) => {
+          return res.json(product);
+        },
+        (error) => {
+          
+          return next(error);
+        }
+      );
+    } else {
+      super.getAll().then(
+        (lista) => {
+          return res.json(lista);
+        },
+        (error) => next(error)
+      );
+    }
+  };
+  getCartByUser=(req, res, next)=>{
+    let { userId } = req.params;
+    if (userId) {
+      super.getByField(userId).then(
+        (product) => {
+          return res.json(product);
+        },
+        (error) => {
+          
+          return next(error);
+        }
+      );
+    }
+  }
 }
 export default MongoDBCart;

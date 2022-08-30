@@ -58,6 +58,20 @@ class MongoDBOrder extends MongoClass {
       );
     }
   };
+  getOrdertByUser=(req, res, next)=>{
+    let { userId } = req.params;
+    if (userId) {
+      super.getByField(userId).then(
+        (product) => {
+          return res.json(product);
+        },
+        (error) => {
+          
+          return next(error);
+        }
+      );
+    }
+  }
   
 }
 export default MongoDBOrder;
